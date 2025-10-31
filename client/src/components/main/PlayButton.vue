@@ -4,7 +4,7 @@ import { global } from "../../stores/global.ts";
 const store = global();
 
 function goLobby() {
-    store.hide_main();
+    store.hide_main(store.show_lobby);
 }
 
 let isHovering = ref(false);

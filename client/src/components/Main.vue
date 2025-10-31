@@ -24,9 +24,11 @@ const controller = {
             }
         );
     },
-    hide() {
+    hide(immediate?: Function) {
         if (this.animator.isActive())
             return ;
+        if (immediate)
+            immediate();
         this.animator = gsap.timeline().to(
             this.container,
             {
@@ -39,7 +41,7 @@ const controller = {
             }
         );
     },
-    show() {
+    show(next?: Function) {
         if (this.animator.isActive())
             return ;
         this.visible.value = true;
@@ -48,7 +50,11 @@ const controller = {
             {
                 clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
                 duration: .8,
-                ease: 'power4.out'
+                ease: 'power4.out',
+                onComplete: () => {
+                    if (next)
+                        next();
+                }
             }
         );
     }
