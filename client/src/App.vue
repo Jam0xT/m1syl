@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import Main from './components/Main.vue';
 import Lobby from './components/Lobby.vue';
+import Account from './components/Account.vue';
 </script>
 
 <template>
     <div class="app-container">
         <Main/>
         <Lobby/>
+        <Account/>
     </div>
 </template>
 

@@ -4,7 +4,7 @@ import { global } from "../../stores/global.ts";
 const store = global();
 
 function goAccount() {
-    store.hide_main();
+    store.hide_main(store.show_account);
 }
 
 let isHovering = ref(false);

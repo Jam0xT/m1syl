@@ -7,6 +7,9 @@ export const global = defineStore('global', {
 
         hide_lobby: null as unknown as Function,
         show_lobby: null as unknown as Function,
+
+        hide_account: null as unknown as Function,
+        show_account: null as unknown as Function,
     }),
     actions:{
 
