@@ -2,6 +2,8 @@ import { defineStore } from 'pinia';
 
 export const global = defineStore('global', {
     state: () => ({
+        view: 'main',
+
         hide_main: null as unknown as Function,
         show_main: null as unknown as Function,
 

@@ -4,6 +4,7 @@ import { global } from "../../stores/global.ts";
 const store = global();
 
 function goAccount() {
+    store.view = 'account';
     store.hide_main(store.show_account);
 }
 

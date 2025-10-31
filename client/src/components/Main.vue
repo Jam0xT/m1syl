@@ -33,7 +33,7 @@ const controller = {
             this.container,
             {
                 clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-                duration: .8,
+                duration: .5,
                 ease: 'power4.out',
                 onComplete: () => {
                     this.visible.value = false;
@@ -49,7 +49,7 @@ const controller = {
             this.container,
             {
                 clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                duration: .8,
+                duration: .5,
                 ease: 'power4.out',
                 onComplete: () => {
                     if (next)

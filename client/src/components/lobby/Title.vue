@@ -11,8 +11,8 @@
 .lobby-title {
     font-family: ComicRelief-Bold, sans-serif;
     font-size: 5rem;
-    color: rgb(var(--clr3));
+    color: rgb(var(--clr4));
     text-align: center;
-    text-shadow: 4px 4px rgba(var(--clr3), 0.5);
+    text-shadow: 4px 4px rgba(var(--clr4), 0.5);
 }
 </style>

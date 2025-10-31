@@ -3,6 +3,7 @@ import { global } from '../../stores/global.ts';
 const store = global();
 
 function goMain() {
+    store.view = 'main';
     store.show_main(store.hide_account);
 }
 
