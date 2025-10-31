@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'ComicRelief-Bold';
+    src: url('./assets/fonts/ComicRelief-Bold.ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body, #app {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* d: dark */
+:root {
+    --clr1: 255, 97, 162;
+    --clr2: 101, 193, 243;
+    --clr2d: 50, 98, 159;
+}
