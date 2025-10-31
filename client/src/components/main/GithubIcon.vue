@@ -17,16 +17,16 @@ function toGithubLink() {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px 5px;
+    padding: .3rem .3rem;
 }
 
 .github-icon {
     width: 4rem;
     height: 4rem;
-    filter: drop-shadow(3px 3px rgba(var(--clr1), 0.5));
+    filter: drop-shadow(.2rem .2rem rgba(var(--clr1), 0.5));
 }
 
 .github-icon:hover {
-    filter: drop-shadow(5px 5px rgba(var(--clr1), 0.5));
+    filter: drop-shadow(.3rem .3rem rgba(var(--clr1), 0.5));
 }
 </style>

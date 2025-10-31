@@ -13,11 +13,33 @@ body, #app {
     width: 100%;
 }
 
+* {
+    font-family: 'ComicRelief-Bold', sans-serif;
+    font-size: 1.4vmin;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 /* d: dark */
 :root {
     --clr1: 255, 97, 162;
+    /* main title */
+
     --clr2: 101, 193, 243;
+    /* main text */
+
     --clr2d: 50, 98, 159;
-    --clr3: 176, 35, 95;
+    /* main text shadow */
+
+    --clr3: 10, 245, 206;
+    /* another color in auth form */
+
     --clr4: 227, 70, 154;
+    /* lobby title */
+
+    --clr5: 0, 204, 221;
+    /* auth form */
+
 }

@@ -16,7 +16,7 @@
 .account-display {
     background: none;
     border: none;
-    padding: 5px 5px;
+    padding: .3rem .3rem;
     display: flex;
     flex-direction: row;
 }
@@ -24,7 +24,7 @@
 .account-icon {
     width: 3rem;
     height: 3rem;
-    filter: drop-shadow(3px 3px rgba(var(--clr1), 0.5));
+    filter: drop-shadow(.2rem .2rem rgba(var(--clr1), 0.5));
 }
 
 .account-id {
@@ -35,6 +35,6 @@
     font-size: 1.5rem;
     color: rgb(var(--clr1));
     text-align: left;
-    text-shadow: 2px 2px rgba(var(--clr1), 0.5);
+    text-shadow: .15rem .15rem rgba(var(--clr1), 0.5);
 }
 </style>

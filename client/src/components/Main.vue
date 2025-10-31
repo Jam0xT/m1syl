@@ -4,10 +4,12 @@ import GithubIcon from "./main/GithubIcon.vue";
 import Title from "./main/Title.vue";
 import AccountDisplay from "./main/AccountDisplay.vue";
 import AccountButton from "./main/AccountButton.vue";
+import accountManager from "../scripts/account.ts";
 
 import { global } from '../stores/global.ts';
 import { onMounted, ref } from 'vue';
 import gsap from "gsap";
+import account from "../scripts/account.ts";
 
 const store = global();
 
@@ -65,6 +67,7 @@ store.show_main = controller.show.bind(controller);
 
 onMounted(() => {
     controller.init();
+    accountManager.init();
 });
 </script>
 

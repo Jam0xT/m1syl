@@ -13,6 +13,6 @@
     font-size: 5rem;
     color: rgb(var(--clr1));
     text-align: center;
-    text-shadow: 4px 4px rgba(var(--clr1), 0.5);
+    text-shadow: .2rem .2rem rgba(var(--clr1), 0.5);
 }
 </style>

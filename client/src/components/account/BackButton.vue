@@ -23,11 +23,11 @@ function goMain() {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 10px 20px;
-    text-shadow: 3px 3px rgba(var(--clr2d), 0.7);
+    padding: .6rem 1.2rem;
+    text-shadow: .2rem .2rem rgba(var(--clr2d), 0.7);
 }
 
 .back-button:hover {
-    text-shadow: 5px 5px rgba(var(--clr2d), 0.7); /* Outer, stronger glow */
+    text-shadow: .3rem .3rem rgba(var(--clr2d), 0.7); /* Outer, stronger glow */
 }
 </style>

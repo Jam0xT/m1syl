@@ -21,9 +21,6 @@ import Account from './components/Account.vue';
     flex-direction: column;
 
     user-select: none;
-    -khtml-user-select: none;
-    -o-user-select: none;
-    -moz-user-select: -moz-none;
     -webkit-user-select: none;
 }
 </style>
