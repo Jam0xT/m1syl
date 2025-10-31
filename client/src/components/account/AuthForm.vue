@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import accountManager from "../../scripts/account.ts";
+
 const id = ref('');
 const pswd = ref('');
-const id_regex = /^[a-zA-Z0-9]+$/;
+const id_regex = /^[a-zA-Z0-9_]+$/;
 
 const isValid = computed(() => {
     return (pswd.value.length > 0)
@@ -12,6 +14,7 @@ const isValid = computed(() => {
 
 function submit() {
     console.log(id.value, pswd.value);
+    accountManager.reqLogin(id.value, pswd.value);
 }
 </script>
 
@@ -28,9 +31,9 @@ function submit() {
                 required
                 autocomplete="off"
             /> <br/>
-            <label for="id">Password</label> <br/>
+            <label for="pswd">Password</label> <br/>
             <input
-                id="id"
+                id="pswd"
                 type="password"
                 v-model="pswd"
                 placeholder="Enter your password here."
@@ -82,7 +85,7 @@ input {
 
     background-color: rgba(0, 0, 0, 0);
     border: none;
-    border-bottom: .15rem solid aquamarine;
+    border-bottom: .15rem solid rgba(127, 255, 212, .5);
     outline: none;
 
     margin-bottom: 2rem;
