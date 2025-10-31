@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { global } from "../../stores/global.ts";
 const store = global();
 
-function goLobby() {
+function goAccount() {
     store.hide_main();
 }
 
@@ -17,13 +17,13 @@ function handleMouseLeave() {
 </script>
 
 <template>
-    <button class="play-button" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click="goLobby">
-        {{ isHovering ? '> PLAY <' : 'PLAY' }}
+    <button class="account-button" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click="goAccount">
+        {{ isHovering ? '> Account <' : 'Account' }}
     </button>
 </template>
 
 <style scoped>
-.play-button {
+.account-button {
     font-family: 'ComicRelief-Bold', sans-serif;
     font-size: 3rem;
     color: rgb(var(--clr2)); /* Match title color */
@@ -34,7 +34,7 @@ function handleMouseLeave() {
     text-shadow: 3px 3px rgba(var(--clr2d), 0.7);
 }
 
-.play-button:hover {
+.account-button:hover {
     text-shadow: 5px 5px rgba(var(--clr2d), 0.7); /* Outer, stronger glow */
 }
 </style>

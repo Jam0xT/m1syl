@@ -23,10 +23,10 @@ function toGithubLink() {
 .github-icon {
     width: 4rem;
     height: 4rem;
-    filter: drop-shadow(3px 3px rgba(255, 97, 162, 0.5));
+    filter: drop-shadow(3px 3px rgba(var(--clr1), 0.5));
 }
 
 .github-icon:hover {
-    filter: drop-shadow(5px 5px rgba(255, 97, 162, 0.5));
+    filter: drop-shadow(5px 5px rgba(var(--clr1), 0.5));
 }
 </style>

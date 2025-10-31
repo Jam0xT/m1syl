@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import Main from './components/Main.vue';
+import Lobby from './components/Lobby.vue';
 </script>
 
 <template>
     <div class="app-container">
         <Main/>
+        <Lobby/>
     </div>
 </template>
 
@@ -15,5 +17,11 @@ import Main from './components/Main.vue';
     align-items: center;
     min-height: 100vh;
     flex-direction: column;
+
+    user-select: none;
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
 }
 </style>
