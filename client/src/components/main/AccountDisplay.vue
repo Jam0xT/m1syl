@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { accountStore } from "../../stores/accountStore.ts";
+
+const account = accountStore();
+
 </script>
 
 <template>
@@ -6,7 +10,7 @@
     <div class="account-display">
         <img class="account-icon" src="../../assets/account.svg" alt="github" width="32" height="32"/>
         <p class="account-id">
-            Connecting...
+            {{ account.id || 'Not Logged In' }}
         </p>
     </div>
 </div>

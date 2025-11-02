@@ -1,0 +1,93 @@
+.auth-form {
+    background: rgba(0, 0, 0, 0);
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    transform: translateY(0);
+}
+.auth-form-title {
+    font-size: 3rem;
+    color: rgb(var(--clr5));
+    text-shadow: .2rem .2rem rgba(var(--clr5), 0.5);
+}
+.auth-form-tr-enter-active,
+.auth-form-tr-leave-active {
+    transition:
+            opacity 0.3s var(--ease-out-cubic),
+            transform 0.3s var(--ease-out-cubic);
+}
+.auth-form-tr-enter-from,
+.auth-form-tr-leave-to {
+    opacity: 0;
+    transform: translateY(2rem);
+}
+.auth-form-tr-enter-to,
+.auth-form-tr-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+label {
+    font-size: 1.2rem;
+    color: rgb(var(--clr5));
+    margin: 0;
+    padding: 0;
+}
+input {
+    font-size: 1.5rem;
+    color: rgb(var(--clr3));
+    text-align: center;
+
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-bottom: .15rem solid rgba(127, 255, 212, .5);
+    outline: none;
+
+    margin-bottom: 2rem;
+}
+input::placeholder {
+    color: rgb(0, 71, 135);
+}
+button {
+    --clr: 0, 235, 255;
+    --clrd: 0, 153, 166;
+    font-size: 2rem;
+    color: rgb(var(--clr5));
+    text-align: center;
+    text-shadow: .15rem .15rem rgba(var(--clr5), 0.5);
+
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    outline: none;
+    border: none;
+
+    cursor: pointer;
+
+    background-color: rgba(0, 0, 0, 0);
+}
+
+button:hover:not(:disabled) {
+    color: rgb(var(--clr));
+}
+
+button:hover:disabled {
+    cursor: not-allowed;
+}
+
+button:active:not(:disabled) {
+    color: rgb(var(--clrd));
+}
+
+.error-msg-cpnt {
+    padding-top:3rem;
+}

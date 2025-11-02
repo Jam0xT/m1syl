@@ -1,0 +1,45 @@
+.auth-info {
+    position: absolute;
+    background: rgba(0, 0, 0, 0);
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+.auth-info-tr-enter-active,
+.auth-info-tr-leave-active {
+    transition:
+            opacity 0.3s var(--ease-out-cubic),
+            transform 0.3s var(--ease-out-cubic);
+}
+.auth-info-tr-enter-from,
+.auth-info-tr-leave-to {
+    opacity: 0;
+    transform: translateY(2rem);
+}
+.auth-info-tr-enter-to,
+.auth-info-tr-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.auth-info-title {
+    font-size: 3rem;
+    color: rgb(var(--clr5));
+    text-shadow: .2rem .2rem rgba(var(--clr5), 0.5);
+}
+
+.auth-info-id-text {
+    font-size: 1.5rem;
+    color: rgb(var(--clr5));
+    text-shadow: .1rem .1rem rgba(var(--clr5), 0.5);
+    margin-bottom: 2rem;
+}
+
+.auth-info-id-text-id {
+    font-size: 1em;
+    display: inline;
+    color: rgb(var(--clr3));
+}

@@ -9,7 +9,6 @@
 
 <style scoped>
 .main-title {
-    font-family: ComicRelief-Bold, sans-serif;
     font-size: 5rem;
     color: rgb(var(--clr1));
     text-align: center;

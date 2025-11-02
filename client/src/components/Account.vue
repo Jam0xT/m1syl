@@ -3,8 +3,8 @@ import BackButton from "./account/BackButton.vue";
 import AuthForm from "./account/AuthForm.vue";
 
 import { ref } from 'vue';
-import { global } from '../stores/global.ts';
-const store = global();
+import { globalStore } from '../stores/globalStore.ts';
+const global = globalStore();
 
 const controller = {
     visible: ref(false),
@@ -16,8 +16,8 @@ const controller = {
     }
 };
 
-store.show_account = controller.show.bind(controller);
-store.hide_account = controller.hide.bind(controller);
+global.show_account = controller.show.bind(controller);
+global.hide_account = controller.hide.bind(controller);
 </script>
 
 <template>

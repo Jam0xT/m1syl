@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { global } from '../../stores/global.ts';
-const store = global();
+import { globalStore } from '../../stores/globalStore.ts';
+const store = globalStore();
 
 function goMain() {
     store.view = 'main';
@@ -17,7 +17,6 @@ function goMain() {
 
 <style scoped>
 .back-button {
-    font-family: 'ComicRelief-Bold', sans-serif;
     font-size: 3rem;
     color: rgb(var(--clr2)); /* Match title color */
     background: none;

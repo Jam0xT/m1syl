@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const global = defineStore('global', {
+export const globalStore = defineStore('global', {
     state: () => ({
         view: 'main',
 

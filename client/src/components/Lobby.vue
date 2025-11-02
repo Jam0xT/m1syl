@@ -3,8 +3,8 @@ import Title from './lobby/Title.vue';
 import BackButton from "./lobby/BackButton.vue";
 
 import { ref } from 'vue';
-import { global } from "../stores/global.ts";
-const store = global();
+import { globalStore } from "../stores/globalStore.ts";
+const global = globalStore();
 
 const controller = {
     visible: ref(false),
@@ -16,8 +16,8 @@ const controller = {
     },
 };
 
-store.show_lobby = controller.show.bind(controller);
-store.hide_lobby = controller.hide.bind(controller);
+global.show_lobby = controller.show.bind(controller);
+global.hide_lobby = controller.hide.bind(controller);
 
 </script>
 

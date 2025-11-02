@@ -42,4 +42,8 @@ body, #app {
     --clr5: 0, 204, 221;
     /* auth form */
 
+    --clr6: 255, 20, 67;
+    /* error msg */
+
+    --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
 }
