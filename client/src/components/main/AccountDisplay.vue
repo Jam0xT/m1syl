@@ -10,7 +10,7 @@ const account = accountStore();
     <div class="account-display">
         <img class="account-icon" src="../../assets/account.svg" alt="github" width="32" height="32"/>
         <p class="account-id">
-            {{ account.id || 'Not Logged In' }}
+            {{ account.id ? `@${account.id}` : 'Not Logged In' }}
         </p>
     </div>
 </div>
@@ -35,7 +35,6 @@ const account = accountStore();
     margin: 0;
     padding-left: 1rem;
     padding-top: 0.5rem;
-    font-family: ComicRelief-Bold, sans-serif;
     font-size: 1.5rem;
     color: rgb(var(--clr1));
     text-align: left;

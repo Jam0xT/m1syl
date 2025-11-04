@@ -5,18 +5,20 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import cors from 'cors';
+import uws from 'uWebSockets.js';
+import { v4 as UUIDv4 } from 'uuid';
+
+import Room from './room';
 
 const mongoClient = new MongoClient(config.mongodb_uri);
 const privateKey = crypto.randomBytes(64).toString('hex');
-const accountCollection = mongoClient.db('m1syl').collection('accounts');
 const app = express();
 
-const whitelist = ['http://localhost:5173'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) {
             callback(null, true);
-        } else if (whitelist.indexOf(origin!) !== -1) {
+        } else if (config.cors_whitelist.indexOf(origin!) !== -1) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS!!'));
@@ -27,6 +29,7 @@ app.use(cors({
 
 app.use(express.json());
 
+const accountCollection = mongoClient.db('m1syl').collection('accounts');
 app.post('/api/auth/login', async (req, res) => {
     console.log(req.body);
     const {id, pswd} = req.body;
@@ -55,3 +58,45 @@ app.post('/api/auth/login', async (req, res) => {
 app.listen(config.port, () => {
     console.log(`Server listening on port ${config.port}`);
 });
+
+const wsServer = uws.App()
+    .get('/', (res, req) => {
+        res.end('ok');
+    })
+    .ws<UserData>('/room', {
+        open: (ws) => {
+            const userData = ws.getUserData();
+            userData.wsID = UUIDv4();
+        },
+        message: (ws, message) => {
+            const userData = ws.getUserData();
+            const parsedMsg = JSON.parse(Buffer.from(message).toString('utf-8')); // {'cmd':<cmd>, 'dat':<data>}
+            switch (parsedMsg.cmd) {
+                case 'c': // create
+                    Room.create().add(userData.wsID);
+                    break;
+                case 'j': // join
+                    Room.join(userData.wsID, parsedMsg.dat);
+                    break;
+                case 'l': // leave
+                    Room.leave(userData.wsID);
+                    break;
+                default:
+                    console.log(`Unknown command ${parsedMsg.cmd}`);
+            }
+        },
+        close: (ws, code, message) => {
+
+        },
+    })
+    .listen(config.ws_port, (token) => {
+        if (token) {
+            console.log(`WebSocket Server listening on port ${config.ws_port}`);
+        } else {
+            console.log(`WebSocket Server failed to listen on port ${config.ws_port}`);
+        }
+    });
+
+type UserData = {
+    wsID: string;
+}

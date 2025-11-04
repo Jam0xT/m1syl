@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { globalStore } from "../../stores/globalStore.ts";
-const store = globalStore();
+const global = globalStore();
 
-function goLobby() {
-    store.view = 'lobby';
-    store.hide_main(store.show_lobby);
+function play() {
+    global.view = 'lobby';
+    global.hide_main(global.show_lobby);
 }
 
 let isHovering = ref(false);
@@ -18,7 +18,7 @@ function handleMouseLeave() {
 </script>
 
 <template>
-    <button class="play-button" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click="goLobby">
+    <button class="play-button" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" @click="play">
         {{ isHovering ? '> PLAY <' : 'PLAY' }}
     </button>
 </template>
