@@ -5,17 +5,20 @@ import Title from "./main/Title.vue";
 import AccountDisplay from "./main/AccountDisplay.vue";
 import AccountButton from "./main/AccountButton.vue";
 
+import { roomStore } from '../stores/roomStore.ts';
 import { globalStore } from '../stores/globalStore.ts';
 import { onMounted, ref } from 'vue';
 import gsap from "gsap";
 
 const global = globalStore();
+const room = roomStore();
 
 const controller = {
     container: null as null | HTMLElement,
     animator: null as unknown as gsap.core.Timeline,
     visible: ref(true),
     init() {
+        room.init();
         this.container = document.querySelector('.main');
         this.animator = gsap.timeline().set(
             this.container,

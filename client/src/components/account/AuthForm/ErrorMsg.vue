@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineExpose } from 'vue';
+import { ref } from 'vue';
 const msg = ref('');
 const isVisible = ref(false);
 let visibleStack = 0;
