@@ -5,11 +5,14 @@ import RoomIDDisplay from "./lobby/RoomIDDisplay.vue";
 import RoomCreateButton from "./lobby/RoomCreateButton.vue";
 import RoomJoinButton from "./lobby/RoomJoinButton.vue";
 import RoomLeaveButton from "./lobby/RoomLeaveButton.vue";
+import PlayerList from "./lobby/PlayerList.vue";
 
 import { ref } from 'vue';
 import { globalStore } from "../stores/globalStore.ts";
+import { roomStore } from "../stores/roomStore.ts";
 
 const global = globalStore();
+const room = roomStore();
 
 const controller = {
     visible: ref(false),
@@ -24,23 +27,22 @@ const controller = {
 global.show_lobby = controller.show.bind(controller);
 global.hide_lobby = controller.hide.bind(controller);
 
-const isInLobby = ref(false);
-
 </script>
 
 <template>
     <div class="lobby" v-show="controller.visible.value">
         <Title class="lobby-title-cpnt"/>
         <Transition class="not-in-lobby-tr">
-            <div class="not-in-lobby" v-if="!isInLobby">
+            <div class="not-in-lobby" v-if="!room.id">
                 <RoomCreateButton class="room-create-button-cpnt"/>
                 <RoomJoinButton class="room-join-button-cpnt"/>
             </div>
         </Transition>
         <Transition class="in-lobby">
-            <div class="in-lobby" v-if="isInLobby">
+            <div class="in-lobby" v-if="room.id">
                 <RoomIDDisplay class="room-id-display-cpnt"/>
                 <RoomLeaveButton class="room-leave-button-cpnt"/>
+                <PlayerList class="player-list-cpnt"/>
             </div>
         </Transition>
         <BackButton class="back-button-cpnt"/>
@@ -65,12 +67,25 @@ const isInLobby = ref(false);
     margin-bottom: 0;
 }
 
+.player-list-cpnt {
+    position: absolute;
+    transform: translateX(-25rem);
+}
+
 .room-create-button-cpnt {
     margin-top: 1rem;
 }
 
 .room-join-button-cpnt {
     margin-top: 1rem;
+}
+
+.room-id-display-cpnt {
+    margin-top: 2rem;
+}
+
+.room-leave-button-cpnt {
+    margin-top: 2rem;
 }
 
 .back-button-cpnt {

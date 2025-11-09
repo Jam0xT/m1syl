@@ -1,32 +1,43 @@
 import { defineStore } from "pinia";
+import { accountStore } from "./accountStore.ts";
 import config from '../../m1syl.config';
 
 export const roomStore = defineStore('room', {
     state: () => ({
-        roomID: '',
-        playerList: [],
+        id: '',
+        playerList: [] as PlayerState[],
         ws: null as WebSocket | null,
     }),
     actions: {
         init() {
             this.ws = (() => {
                 try {
-                    const ws = new WebSocket(config.lobby_url);
+                    const ws = new WebSocket(`${config.lobby_url}/room`);
                     ws.onopen = () => {
+                        ws.send(JSON.stringify({
+                            cmd: 'i',
+                            dat: accountStore().accessToken,
+                        }));
                         console.log('WebSocket opened');
                     };
                     ws.onmessage = (event) => {
                         const msg = JSON.parse(event.data);
                         switch (msg.cmd) {
-                            case '#':
-                                this.roomID = msg.dat;
+                            case '#': // joins a new room
+                                this.id = msg.dat.rid;
+                                this.playerList = msg.dat.ls.map((state: {dis: string, rd: boolean, id: string}) => {
+                                    return {display: state.dis, ready: state.rd, id: state.id} as PlayerState;
+                                });
                                 break;
-                            case '+':
-
+                            case '+': // someone else joins
+                                this.playerList.push({display: msg.dat.dis, id: msg.dat.id, ready: false});
                                 break;
-                            case '-':
+                            case '-': // someone else leaves
+                                this.playerList.splice(this.playerList.findIndex((state) => {return state.id === msg.dat.id}), 1);
                                 break;
-                            case '!':
+                            case '!': // leaves current room, might be forced to (closed/been kicked from)
+                                this.id = '';
+                                this.playerList = [];
                                 break;
                             default:
                                 console.error(`Unknown command: ${msg.cmd}`);
@@ -72,6 +83,14 @@ export const roomStore = defineStore('room', {
             this.ws.send(JSON.stringify({
                 cmd: 'l',
             }));
+            this.id = '';
+            this.playerList = [];
         }
     }
 });
+
+type PlayerState = {
+    id: string;
+    display: string;
+    ready: boolean;
+}

@@ -17,19 +17,27 @@ function tryJoin() {
 </script>
 
 <template>
-    <button
-        type="button"
-        @click="tryJoin"
-    >Join</button>
-    <input
-        id="roomID"
-        v-model="roomIDInput"
-        placeholder="Enter ID here."
-        autocomplete="off"
-    />
+    <div class="room-join-button-wrapper">
+        <button
+            type="button"
+            @click="tryJoin"
+        >Join</button>
+        <input
+            id="roomID"
+            v-model="roomIDInput"
+            placeholder="Enter ID here."
+            autocomplete="off"
+        />
+    </div>
 </template>
 
 <style scoped>
+.room-join-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 button {
     font-size: 3rem;
     margin-top: 1rem;

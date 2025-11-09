@@ -7,9 +7,11 @@ import crypto from 'crypto';
 import cors from 'cors';
 import uws from 'uWebSockets.js';
 import { v4 as UUIDv4 } from 'uuid';
+import { getNewGuestID } from "./guest";
 
 import Room from './room';
 
+const wsDict: Record<string, uws.WebSocket<UserData>> = {};
 const mongoClient = new MongoClient(config.mongodb_uri);
 const privateKey = crypto.randomBytes(64).toString('hex');
 const app = express();
@@ -50,8 +52,16 @@ app.post('/api/auth/login', async (req, res) => {
             'id': id,
             'pswdh': hash,
         });
-        const token = jwt.sign({'id': id}, privateKey);
-        res.status(200).json({'accessToken': token});
+        const accessToken = jwt.sign(
+            { // the payload
+                'id': id
+            },
+            privateKey,
+            {
+                algorithm: 'HS256', // by default, just to tell explicitly
+                expiresIn: '15m' // 15 min
+            });
+        res.status(200).json({'accessToken': accessToken});
     }
 });
 
@@ -67,18 +77,43 @@ const wsServer = uws.App()
         open: (ws) => {
             const userData = ws.getUserData();
             userData.wsID = UUIDv4();
+            wsDict[userData.wsID] = ws;
         },
         message: (ws, message) => {
             const userData = ws.getUserData();
             const parsedMsg = JSON.parse(Buffer.from(message).toString('utf-8')); // {'cmd':<cmd>, 'dat':<data>}
             switch (parsedMsg.cmd) {
+                case 'i': // init
+                    userData.open = true;
+                    const accessToken: string = parsedMsg.dat.accessToken;
+                    if (accessToken) {
+                        try {
+                            jwt.verify(accessToken, privateKey, (error, decoded ) => {
+                                if (error) {
+                                    console.error(`Verify errors: ${error}`);
+                                    return ;
+                                }
+                                userData.id = (decoded as AccessTokenPayload).id;
+                            });
+                        } catch (err) {
+                            console.error(`Something went wrong when attempting to verify an accessToken: ${err}`);
+                        }
+                    } else {
+                        userData.id = getNewGuestID();
+                        console.log(`new guest '${userData.id}'`);
+                    }
+                    break;
                 case 'c': // create
-                    Room.create().add(userData.wsID);
+                    if (!userData.open) { break; }
+                    Room.create(userData.wsID, userData.id, userData.id);
                     break;
                 case 'j': // join
-                    Room.join(userData.wsID, parsedMsg.dat);
+                    if (!userData.open) { break; }
+                    const roomID: string = parsedMsg.dat;
+                    Room.join(roomID, userData.wsID, userData.id, userData.id);
                     break;
                 case 'l': // leave
+                    if (!userData.open) { break; }
                     Room.leave(userData.wsID);
                     break;
                 default:
@@ -86,7 +121,11 @@ const wsServer = uws.App()
             }
         },
         close: (ws, code, message) => {
-
+            const userData = ws.getUserData();
+            if (!userData.open) {
+                return;
+            }
+            Room.leave(userData.wsID);
         },
     })
     .listen(config.ws_port, (token) => {
@@ -98,5 +137,15 @@ const wsServer = uws.App()
     });
 
 type UserData = {
+    open: boolean;
+    id: string;
     wsID: string;
+}
+
+type AccessTokenPayload = {
+    id: string;
+}
+
+export {
+    wsDict,
 }

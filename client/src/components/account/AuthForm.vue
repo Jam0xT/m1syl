@@ -46,17 +46,13 @@ async function submit() {
     }
 }
 
-const isLoggedIn = ref(false);
-
 function login() {
     pswd.value = '';
-    isLoggedIn.value = true;
 }
 
 function logout() {
     id.value = '';
     account.logout();
-    isLoggedIn.value = false;
 }
 
 </script>
@@ -64,7 +60,7 @@ function logout() {
 <template>
     <div class="auth-form-container">
         <Transition name="auth-form-tr">
-            <div class="auth-form" v-if="!isLoggedIn">
+            <div class="auth-form" v-if="!account.loggedIn">
                 <h2 class="auth-form-title">Login / Register</h2>
                 <form @submit.prevent="submit">
                     <label for="id">ID (Username)</label> <br/>
@@ -94,11 +90,11 @@ function logout() {
             </div>
         </Transition>
         <Transition name="auth-info-tr">
-            <div class="auth-info" v-if="isLoggedIn">
+            <div class="auth-info" v-if="account.loggedIn">
                 <h2 class="auth-info-title">Account</h2>
                 <div class="auth-info-id-text">
                     Logged in as:
-                    <p class="auth-info-id-text-id">{{ id }}</p>
+                    <p class="auth-info-id-text-id">{{ account.id }}</p>
                 </div>
                 <button
                     type="button"
